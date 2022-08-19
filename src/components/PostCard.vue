@@ -11,6 +11,10 @@
                     <h6>{{post.body}}</h6>
                     <p>{{new Date(post.createdAt).toLocaleDateString('en-US')}}</p>
                     <img class="img-fluid" :src="post.imgUrl" alt="">
+                    <div class="d-flex m-3">
+                        <p class="p-2">{{post.likes.length}}</p>
+                        <button class="btn btn-dark" @click="likePost(post.id)">Like</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -20,13 +24,26 @@
 
 <script>
 import { Post } from '../models/Post.js';
+import { postsService } from '../services/PostsService.js';
+import { logger } from '../utils/Logger.js';
+import Pop from '../utils/Pop.js';
 
 export default {
     props: {
-        post: {type: Post, required: true}
+        post: {type: Post, required: true},
     },
+
     setup(props){
-        return{}
+        return{
+            async likePost(id){
+                try {
+                    await postsService.likePost(id)
+                } catch (error) {
+                    logger.error('[liking a post]',error)
+                    Pop.error(error)
+                }
+            }
+        }
     }
 }
 </script>
