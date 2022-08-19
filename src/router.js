@@ -12,6 +12,11 @@ const routes = [
     component: loadPage('HomePage')
   },
   {
+    path: '/:postId',
+    name: 'Post',
+    component: loadPage('PostPage')
+  },
+  {
     path: '/about',
     name: 'About',
     component: loadPage('AboutPage')
@@ -21,7 +26,7 @@ const routes = [
     name: 'Account',
     component: loadPage('AccountPage'),
     beforeEnter: authGuard
-  }
+  },
 ]
 
 export const router = createRouter({
