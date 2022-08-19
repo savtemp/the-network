@@ -11,12 +11,21 @@ class PostsService{
                 page: page
             }
         })
-        // logger.log(res.data)
+        logger.log(res.data)
         AppState.posts = new Post(res.data) 
         // logger.log(res.data.posts)
         AppState.posts = res.data.posts.map(p => new Post(p))
         AppState.page = res.data.page
-        
+    }
+
+    async getPostsByCreatorId(creatorId){
+        const res = await api.get(`api/posts`, {
+            params: {
+                creatorId
+            }
+        })
+        AppState.profilePosts = new Post(res.data)
+        AppState.profilePosts = res.data.posts.map(p => new Post(p))
     }
 }
 

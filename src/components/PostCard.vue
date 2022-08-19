@@ -1,21 +1,20 @@
 <template>
     <div class="row post-card card">
-        <router-link :to="{name: 'Post', params: {postId: post.id}}">
-            <div class="card-body">
-                <div class="card-title">
-                    <div class="text-dark">
-                        <h6>{{post.body}}</h6>
-                        <p>{{new Date(post.createdAt).toLocaleDateString('en-US')}}</p>
-                    </div>
+        <div class="col-12 post-creator" v-if="post.creator">
+            <router-link :to="{name: 'Profile', params: {profileId: post.creator.id}}">
+                <img class="img-fluid profile-img" :src="post.creator.picture" alt="" :title="post.creator.name">
+            </router-link>
+        </div>
+        <div class="col-12 card-body">
+            <div class="card-title">
+                <div class="text-dark">
+                    <h6>{{post.body}}</h6>
+                    <p>{{new Date(post.createdAt).toLocaleDateString('en-US')}}</p>
+                    <img class="img-fluid" :src="post.imgUrl" alt="">
                 </div>
             </div>
-        </router-link>
+        </div>
     </div>
-    <!-- <div class="post-creator" v-if="post.creator">
-        <router-link :to="{name: 'Profile', params: {profileId: post.creator.id}}">
-            <img class="img-fluid" :src="post.creator.picture" alt="" :title="post.creator.name">
-        </router-link>
-    </div> -->
 </template>
 
 
@@ -34,4 +33,26 @@ export default {
 
 
 <style lang="scss" scoped>
+.post-card{
+    min-height: 80px;
+}
+
+.post-creator{
+    // position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+}
+
+.profile-img{
+    transition: all .15s linear;
+    border-radius: 50px;
+    height: 45px;
+    width: 45px;
+    object-fit: cover;
+    object-position: center;
+
+    &:hover{
+        transform: translateY(-3px);
+    }
+}
 </style>
