@@ -44,6 +44,16 @@ class PostsService{
         const res = await api.post(`/api/posts/${id}/like`)
         logger.log(res.data)
     }
+
+    // FIXME getting Vue warning, will search but won't let me go back to the home page??
+    async searchPosts(searchTerm){
+        const res = await api.get(`/api/posts`, {
+            params: {
+                query: searchTerm
+            }
+        })
+        AppState.posts = res.data.posts
+    }
 }
 
 

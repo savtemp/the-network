@@ -13,7 +13,9 @@
                     <img class="img-fluid" :src="post.imgUrl" alt="">
                     <div class="d-flex m-3">
                         <p class="p-2">{{post.likes.length}}</p>
-                        <button class="btn btn-dark" @click="likePost(post.id)">Like</button>
+                        <!-- TODO make it so you cant see the lke button until you are logged in  -->
+                        <button class="btn btn-dark" 
+                        @click="likePost(post.id)">Like</button>
                     </div>
                 </div>
             </div>
