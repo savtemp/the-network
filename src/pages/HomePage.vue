@@ -1,18 +1,28 @@
 <template>
-<div class="row home-page d-flex justify-content-center text-center mt-2">
+
+<div class="row">
+    <!-- FIXME add v-if for account.id -->
+    <CreatePost />
+</div>
+
+<div class="row d-flex justify-content-center text-center mt-2">
     <div class="col-3">
         <button @click="changePage(newerPage)" class="btn btn-outline-dark w-50" :disabled="!newerPage">Newer</button>
     </div>
     <div class="col-3">
         <button @click="changePage(olderPage)" class="btn btn-outline-dark w-50">Older</button>
     </div>
-
 </div>
-    <div class="row home-page justify-content-center">
-        <div class="col-10 my-2" v-for="p in post" :key="p.id">
-            <PostCard :post="p" /> 
-        </div>
+
+<div class="row">
+    <div class="col-md-9 my-2 justify-content-center" v-for="p in post" :key="p.id">
+        <PostCard :post="p" /> 
     </div>
+    <div class="col-md-3 align-items-center">
+        <Ads v-for="ad in ads" :key="ad.title" :ad="ad" />
+    </div>
+</div>
+
 </template>
 
 <script>
@@ -23,6 +33,9 @@ import { onMounted } from 'vue';
 import { computed } from '@vue/reactivity';
 import { AppState } from "../AppState.js"
 import PostCard from '../components/PostCard.vue';
+import CreatePost from '../components/CreatePost.vue';
+import Ads from '../components/Ads.vue';
+import { adsService } from '../services/AdsService.js';
 
 export default {
     setup() {
@@ -35,13 +48,26 @@ export default {
                 Pop.error(error);
             }
         }
+
+        async function getAds(){
+            try {
+                await adsService.getAds()
+            } catch (error) {
+                logger.error('[Getting Ads]', error)
+                Pop.error(error)
+            }
+        }
+
         onMounted(() => {
-            getPosts();
+            getPosts()
+            getAds()
+
         });
         return {
             post: computed(() => AppState.posts),
             olderPage: computed(() => AppState.olderPage),
             newerPage: computed(() => AppState.newerPage),
+            ads: computed(() => AppState.ads),
 
             async changePage(url){
                 try {
@@ -52,7 +78,7 @@ export default {
             }
         };
     },
-    components: { PostCard }
+    components: { PostCard, CreatePost, Ads }
 }
 </script>
 

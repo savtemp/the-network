@@ -20,5 +20,6 @@ export const AppState = reactive({
 
   olderPage: null,
   newerPage: null,
+  ads: [],
 
 })

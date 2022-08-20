@@ -1,8 +1,14 @@
 <template>
-  <div class="about text-center">
-    <h1>Welcome {{ account.name }}</h1>
-    <img class="rounded" :src="account.picture" alt="" />
-    <p>{{ account.email }}</p>
+  <div class="row about text-center">
+    <div class="col-8">
+      <h1>Welcome {{ account.name }}</h1>
+      <img class="rounded" :src="account.picture" alt="" />
+      <p>{{ account.email }}</p>
+    </div>
+    <div class="col-8">
+      <h1>Edit Your Profile Details</h1>
+      <!-- INSERT ACCOUNT FORM -->
+    </div>
   </div>
 </template>
 

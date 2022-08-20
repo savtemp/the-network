@@ -21,6 +21,11 @@ class PostsService{
 
     }
 
+    async createPost(postData){
+        const res = await api.post(`api/posts`, postData)
+        AppState.posts.unshift(new Post(res.data))
+    }
+
     async getPostsByCreatorId(creatorId){
         const res = await api.get(`api/posts`, {
             params: {

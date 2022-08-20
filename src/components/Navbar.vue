@@ -36,11 +36,12 @@
 
 <script>
 import SearchForm from './SearchForm.vue';
+import Login from './Login.vue';
 export default {
     setup() {
         return {};
     },
-    components: { SearchForm }
+    components: { SearchForm, Login }
 };
 </script>
 

@@ -1,6 +1,6 @@
 <template>
 <!-- <div>Hello from the profile page </div> -->
-    <div class="profile-page" v-if="profile">
+    <div class="row profile-page justify-content-center p-3" v-if="profile">
         <div class="cover-img">
             <div class="position-absolute" style="right:0" v-if="profile.id == account.id">
                 <router-link class="btn square btn-warning" :to="{name: 'Account'}">Edit Account</router-link>
