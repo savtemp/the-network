@@ -1,11 +1,25 @@
 <template>
-  <header class="">
-    <Navbar />
-  </header>
 
-  <main class="container-fluid">
-    <router-view />
-  </main>
+<div class="d-flex">
+  <section class="container bg-light">
+    <Login />
+  </section>
+
+  <div>
+    <header class="">
+      <Navbar />
+    </header>
+
+    <main class="container-fluid">
+      <router-view />
+    </main>
+
+    <!-- <section class="container">
+      <Ads />
+    </section> -->
+  </div>
+
+</div>
 </template>
 
 <script>
@@ -14,6 +28,8 @@ import { AppState } from './AppState';
 import Login from './components/Login.vue';
 import ProfilePage from './pages/ProfilePage.vue';
 import Login1 from './components/Login.vue';
+import ProfileDetails from './components/ProfileDetails.vue';
+import Login2 from './components/Login.vue';
 
 export default {
     name: "App",
@@ -22,7 +38,7 @@ export default {
             appState: computed(() => AppState)
         };
     },
-    components: { Login, ProfilePage, Login1 }
+    components: { Login, ProfilePage, Login1, ProfileDetails, Login2 }
 }
 </script>
 <style lang="scss">

@@ -1,27 +1,41 @@
 <template>
 
-<div class="row">
-    <!-- FIXME add v-if for account.id -->
-    <CreatePost />
-</div>
+<div class="d-flex">
 
-<div class="row d-flex justify-content-center text-center mt-2">
-    <div class="col-3">
-        <button @click="changePage(newerPage)" class="btn btn-outline-dark w-50" :disabled="!newerPage">Newer</button>
+    <div>
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <!-- FIXME add v-if for account.id -->
+                <CreatePost />
+            </div>
+        </div>
+    
+        <div class="row d-flex justify-content-center text-center mt-2">
+            <div class="col-4">
+                <button @click="changePage(newerPage)" class="btn btn-outline-dark w-50" :disabled="!newerPage">Newer</button>
+            </div>
+            <div class="col-4">
+                <button @click="changePage(olderPage)" class="btn btn-outline-dark w-50">Older</button>
+            </div>
+        </div>
+    
+        <div class="row justify-content-center">
+            <div class="col-md-10 my-2" v-for="p in post" :key="p.id">
+                <PostCard :post="p" /> 
+            </div>
+        </div>
     </div>
-    <div class="col-3">
-        <button @click="changePage(olderPage)" class="btn btn-outline-dark w-50">Older</button>
-    </div>
-</div>
 
-<div class="row">
-    <div class="col-md-9 my-2 justify-content-center" v-for="p in post" :key="p.id">
-        <PostCard :post="p" /> 
-    </div>
-    <div class="col-md-3 align-items-center">
+    <div class="col-md-3">
+        <!-- FIXME ads should be in the AppVue - kind of looks broken from home page to profile page -->
         <Ads v-for="ad in ads" :key="ad.title" :ad="ad" />
     </div>
+
 </div>
+
+
+
+
 
 </template>
 
@@ -78,7 +92,6 @@ export default {
             }
         };
     },
-    components: { PostCard, CreatePost, Ads }
 }
 </script>
 

@@ -1,6 +1,6 @@
 <template>
-    <form @submit.prevent="handleSubmit">
-        <h1>Create A Post!</h1>
+    <form class="card" @submit.prevent="handleSubmit">
+        <h6>Create A Post!</h6>
         <input class="form-control" type="url" placeholder="Add Your Image ..." v-model="editable.imgUrl">
         <textarea class="form-control" name="body" cols="30" rows="10" placeholder="Whats on your mind ..." v-model="editable.body"></textarea>
         <button class="btn btn-dark" type="submit">Post</button>

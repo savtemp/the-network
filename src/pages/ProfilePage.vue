@@ -1,20 +1,40 @@
 <template>
-<!-- <div>Hello from the profile page </div> -->
-    <div class="row profile-page justify-content-center p-3" v-if="profile">
-        <div class="cover-img">
-            <div class="position-absolute" style="right:0" v-if="profile.id == account.id">
-                <router-link class="btn square btn-warning" :to="{name: 'Account'}">Edit Account</router-link>
-            </div>   
-            <img :src="profile.picture" alt="" height="120">
-            <h3>{{profile.name}}</h3>
-            <p>{{profile.bio}}</p>
-        </div>
-        <div class="row">
-            <div class="col-10" v-for="p in posts" :key="p.id">
-                <PostCard :post="p" />
+
+<div class="d-flex">
+    <div>
+        <div class="row profile-page justify-content-center p-3" v-if="profile">
+            <!-- SECTION profile details card -->
+            <div class="card cover-img">
+                <div v-if="profile.id == account.id">
+                    <router-link class="btn square btn-warning" :to="{name: 'Account'}">Edit Account</router-link>
+                </div>   
+                <img class="img-fluid" :src="profile.picture" alt="" height="120">
+                <h3>{{profile.name}}</h3>
+                <p>{{profile.bio}}</p>
+            </div>
+
+            <!-- SECTION create post card -->
+            <div class="row" v-if="profile.id == account.id">
+                <div class="col-10">
+                    <CreatePost />
+                </div>
+            </div>
+
+            <!-- SECTION posts card -->
+            <div class="row">
+                <div class="col-10" v-for="p in posts" :key="p.id">
+                    <PostCard :post="p" />
+                </div>
             </div>
         </div>
     </div>
+
+    <div class="col-md-3">
+        <!-- FIXME ads should be in the AppVue - kind of looks broken from home page to profile page -->
+        <Ads v-for="ad in ads" :key="ad.title" :ad="ad" />
+    </div>
+</div>
+
 </template>
 
 
@@ -29,13 +49,15 @@ import {postsService} from '../services/PostsService.js'
 import { logger } from '../utils/Logger.js';
 import Pop from '../utils/Pop.js';
 import PostCard from '../components/PostCard.vue';
+import Ads from '../components/Ads.vue';
+import { adsService } from '../services/AdsService.js';
+import CreatePost from '../components/CreatePost.vue';
+
 
 export default {
     name: "Profile",
     setup() {
-
         const route = useRoute();
-
         async function getProfileById() {
             try {
                 await profilesService.getProfileById(route.params.profileId);
@@ -46,30 +68,39 @@ export default {
                 router.push({ name: "Home" });
             }
         }
-
-        async function getPostsByCreatorId(){
+        async function getPostsByCreatorId() {
             try {
-                await postsService.getPostsByCreatorId(route.params.profileId)
-            } catch (error) {
-                logger.error('[Getting profile posts]',error)
-                Pop.error(error)
+                await postsService.getPostsByCreatorId(route.params.profileId);
+            }
+            catch (error) {
+                logger.error("[Getting profile posts]", error);
+                Pop.error(error);
             }
         }
-
+        async function getAds() {
+            try {
+                await adsService.getAds();
+            }
+            catch (error) {
+                logger.error("[Getting Ads]", error);
+                Pop.error(error);
+            }
+        }
         onMounted(() => {
-            getProfileById()
-            getPostsByCreatorId()
+            getProfileById();
+            getPostsByCreatorId();
+            getAds();
         });
-
         return {
             route,
             account: computed(() => AppState.account),
             profile: computed(() => AppState.activeProfile),
-            cover: computed(() => `url(${AppState.activeProfile?.coverImg || 'https://cdn.pixabay.com/photo/2017/07/16/17/33/background-2509983_1280.jpg'})`), 
-            posts: computed(() => AppState.profilePosts)
+            cover: computed(() => `url(${AppState.activeProfile?.coverImg || "https://cdn.pixabay.com/photo/2017/07/16/17/33/background-2509983_1280.jpg"})`),
+            posts: computed(() => AppState.profilePosts),
+            ads: computed(() => AppState.ads),
         };
     },
-    components: { PostCard }
+    components: { CreatePost }
 }
 </script>
 
