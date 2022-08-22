@@ -5,6 +5,11 @@
                 <img class="img-fluid profile-img" :src="post.creator.picture" alt="" :title="post.creator.name">
             </router-link>
         </div>
+
+        <div v-if="post.creator.id == account.id">
+            <button class="btn btn-danger" @click="deletePost(post.id)">Delete Post</button>
+        </div>
+
         <div class="col-12 card-body">
             <div class="card-title">
                 <div class="text-dark">
@@ -14,7 +19,7 @@
                     <div class="d-flex m-3">
                         <p class="p-2">{{post.likes.length}}</p>
                         <!-- TODO make it so you cant see the lke button until you are logged in  -->
-                        <button class="btn btn-dark" 
+                        <button v-if="user.name" class="btn btn-dark" 
                         @click="likePost(post.id)">Like</button>
                     </div>
                 </div>
@@ -25,6 +30,9 @@
 
 
 <script>
+import { computed } from '@vue/reactivity';
+import { popScopeId, ref } from 'vue';
+import { AppState } from '../AppState.js';
 import { Post } from '../models/Post.js';
 import { postsService } from '../services/PostsService.js';
 import { logger } from '../utils/Logger.js';
@@ -36,7 +44,25 @@ export default {
     },
 
     setup(props){
+
+        const deleting = ref(false)
+
         return{
+            deleting,
+            account: computed(() => AppState.account),
+            user: computed(() => AppState.user),
+
+// TODO add pop-confirm
+            async deletePost(id){
+                try {
+                    await postsService.deletePost(id)
+                } catch (error) {
+                    logger.error('[Deleting Post]')
+                    Pop.error(error)
+                }
+            },
+
+
             async likePost(id){
                 try {
                     await postsService.likePost(id)

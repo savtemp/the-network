@@ -26,6 +26,11 @@ class PostsService{
         AppState.posts.unshift(new Post(res.data))
     }
 
+    async deletePost(id){
+        const res = await api.delete(`api/posts/${id}`)
+        AppState.posts = AppState.posts.filter(p => p.id != id)
+    }
+
     async getPostsByCreatorId(creatorId){
         const res = await api.get(`api/posts`, {
             params: {

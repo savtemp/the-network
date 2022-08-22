@@ -6,7 +6,7 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <!-- FIXME add v-if for account.id -->
-                <CreatePost />
+                <CreatePost v-if="user.name" />
             </div>
         </div>
     
@@ -82,6 +82,7 @@ export default {
             olderPage: computed(() => AppState.olderPage),
             newerPage: computed(() => AppState.newerPage),
             ads: computed(() => AppState.ads),
+            user: computed(() => AppState.user),
 
             async changePage(url){
                 try {

@@ -8,15 +8,31 @@
                 <div v-if="profile.id == account.id">
                     <router-link class="btn square btn-warning" :to="{name: 'Account'}">Edit Account</router-link>
                 </div>   
-                <img class="img-fluid" :src="profile.picture" alt="" height="120">
+                <img class="img-fluid" :src="profile.coverImg" alt="" height="120">
+                <img class="img-fluid" :src="profile.picture" alt="" height="50">
                 <h3>{{profile.name}}</h3>
+                <p>{{profile.email}}</p>
+                <p>{{profile.class}}</p>
+                <p>Graduated: <span>{{profile.graduated}}</span></p>
                 <p>{{profile.bio}}</p>
+                <a href="https://github.com/">GitHub</a>
+                <!-- <a href="">{{profile.linkedin}}</a> -->
             </div>
 
             <!-- SECTION create post card -->
             <div class="row" v-if="profile.id == account.id">
                 <div class="col-10">
                     <CreatePost />
+                </div>
+            </div>
+            
+            <!-- SECTION change page buttons -->
+            <div class="row d-flex text-center mt-2">
+                <div class="col-4">
+                    <button @click="changePage(newerPage)" class="btn btn-outline-dark w-50" :disabled="!newerPage">Newer</button>
+                </div>
+                <div class="col-4">
+                    <button @click="changePage(olderPage)" class="btn btn-outline-dark w-50">Older</button>
                 </div>
             </div>
 
@@ -98,6 +114,16 @@ export default {
             cover: computed(() => `url(${AppState.activeProfile?.coverImg || "https://cdn.pixabay.com/photo/2017/07/16/17/33/background-2509983_1280.jpg"})`),
             posts: computed(() => AppState.profilePosts),
             ads: computed(() => AppState.ads),
+            olderPage: computed(() => AppState.olderPage),
+            newerPage: computed(() => AppState.newerPage),
+
+            async changePage(url){
+                try {
+                    await postsService.changePage(url)
+                } catch (error) {
+                    logger.error(error)
+                }
+            }
         };
     },
     components: { CreatePost }
