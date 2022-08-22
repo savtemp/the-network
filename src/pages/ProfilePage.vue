@@ -17,6 +17,8 @@
                     <p>{{profile.class}}</p>
                     <p>Graduated: <span>{{profile.graduated}}</span></p>
                     <p>{{profile.bio}}</p>
+                    <p>{{profile.linkedin}}</p>
+                    <p>{{profile.resume}}</p>
                     <a href="https://github.com/">GitHub</a>
                     <!-- <a href="">{{profile.linkedin}}</a> -->
                 </div>
