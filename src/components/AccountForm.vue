@@ -17,6 +17,21 @@
             </div>
 
             <div>
+                <label for="GitHub:"></label>
+                <input class="form-control" type="url" required name="github" placeholder="github" v-model="editable.github">
+            </div>
+
+            <div>
+                <label for="LinkedIn:"></label>
+                <input class="form-control" type="url" required name="linkedin" placeholder="linkedin" v-model="editable.linkedin">
+            </div>
+
+            <div>
+                <label for="Resume:"></label>
+                <input class="form-control" type="url" required name="resume" placeholder="resume" v-model="editable.resume">
+            </div>
+
+            <div>
                 <label for="Bio:"></label>
                 <textarea class="form-control" name="bio" required rows="8" style="resize:none" v-model="editable.bio"></textarea>
             </div>
@@ -29,6 +44,11 @@
             <div>
                 <label for="Class:"></label>
                 <input class="form-control" type="text" required name="class" placeholder="Class..." v-model="editable.class">
+            </div>
+
+            <div>
+                <label for="Graduated:"></label>
+                <input class="form-control" type="text" required name="graduated" placeholder="Graduated..." v-model="editable.graduated">
             </div>
 
             <div>
