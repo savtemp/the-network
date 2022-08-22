@@ -2,7 +2,7 @@
 
 <div class="bg-white rounded elevation-2 d-flex justify-content-evenly">
     <div class="col-2 p-2 m-2">
-        <img class="img-fluid profile-thumb" :src="account.picture" alt="">
+        <img class="img-fluid profile-thumb" :src="account.picture" alt="" @click.stop="goToMyProfile">
     </div>
     <form class="col-9 p-2" @submit.prevent="handleSubmit">
         <textarea class="dashed form-control my-2" name="body" cols="20" rows="5" placeholder="Whats on your mind ..." v-model="editable.body"></textarea>
@@ -21,7 +21,10 @@
 <script>
 import { computed } from '@vue/reactivity';
 import { ref } from 'vue';
+import { useRoute } from 'vue-router';
 import { AppState } from '../AppState.js';
+import { router } from '../router.js';
+import { accountService } from '../services/AccountService.js';
 import { postsService } from '../services/PostsService.js';
 import { logger } from '../utils/Logger.js';
 import Pop from '../utils/Pop.js';
@@ -33,6 +36,14 @@ export default {
         return{
             account: computed(() => AppState.account),
             editable,
+
+// FIXME this does not work 
+            goToMyProfile(){
+                router.push({
+                    name: 'Profile',
+                    params: {profileId}
+                })
+            },
 
             async handleSubmit(){
                 try {

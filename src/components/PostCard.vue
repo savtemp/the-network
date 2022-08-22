@@ -1,18 +1,20 @@
 <template>
     <div class="row post-card card">
-        <div class="col-12 post-creator p-3 d-flex" v-if="post.creator">
-            <router-link :to="{name: 'Profile', params: {profileId: post.creator.id}}">
-                <img class="img-fluid profile-img" :src="post.creator.picture" alt="" :title="post.creator.name">
-            </router-link>
-            <div class="px-4">
-                <p class="m-0"><b>{{post.creator.name}}</b></p>
-                <p class="m-0">{{new Date(post.createdAt).toLocaleDateString('en-US')}}</p>
+        <div class="col-12 post-creator p-3 d-flex justify-content-between" v-if="post.creator">
+            <div class="d-flex">
+                <router-link :to="{name: 'Profile', params: {profileId: post.creator.id}}">
+                    <img class="img-fluid profile-img" :src="post.creator.picture" alt="" :title="post.creator.name">
+                </router-link>
+                <div class="px-4">
+                    <p class="m-0"><b>{{post.creator.name}}</b></p>
+                    <p class="m-0">{{new Date(post.createdAt).toLocaleDateString('en-US')}}</p>
+                </div>
+            </div>
+            <div v-if="post.creator.id == account.id">
+                <button class="btn btn-danger" @click="deletePost(post.id)">Delete Post</button>
             </div>
         </div>
 
-        <!-- <div v-if="post.creator.id == account.id">
-            <button class="btn btn-danger" @click="deletePost(post.id)">Delete Post</button>
-        </div> -->
 
         <div class="col-12 p-0">
             <div class="card-title">
@@ -21,18 +23,12 @@
                 </div>
                 <div class="text-dark">
                     <img class="img-fluid" :src="post.imgUrl" alt="">
-                    <div class="d-flex p-2 justify-content-between">
+                    <div class="d-flex p-2 justify-content-end">
                         <!-- FIXME have to refresh to update like  -->
-                        <div v-if="post.creator.id == account.id">
-                            <button class="btn btn-danger" @click="deletePost(post.id)">Delete Post</button>
-                        </div>
                         <div class="d-flex" v-if="user.name" @click="likePost(post.id)">
                             <i class="selectable no-select fs-4 mdi mdi-heart"></i>
                             <p class="fs-4 px-2 m-0">{{post.likes.length}}</p>
                         </div>
-                        <!-- <button v-if="user.name" class="btn btn-dark" 
-                        @click="likePost(post.id)"><i class="mdi mdi-heart"></i></button>
-                        <p class="p-2">{{post.likes.length}}</p> -->
                     </div>
                 </div>
             </div>
