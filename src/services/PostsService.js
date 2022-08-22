@@ -39,12 +39,17 @@ class PostsService{
         })
         AppState.profilePosts = new Post(res.data)
         AppState.profilePosts = res.data.posts.map(p => new Post(p))
+
+        AppState.page = res.data.page
+        AppState.newerPage = res.data.newer
+        AppState.olderPage = res.data.older
     }
 
     async changePage(url){
         logger.log(url)
         const res = await api.get(url)
         logger.log(res.data)
+
         AppState.posts = res.data.posts
         AppState.olderPage = res.data.older
         AppState.newerPage = res.data.newer
@@ -56,6 +61,7 @@ class PostsService{
     async likePost(id){
         const res = await api.post(`/api/posts/${id}/like`)
         logger.log(res.data)
+        AppState.likePost = res.data
     }
 
     // FIXME getting Vue warning, will search but won't let me go back to the home page??

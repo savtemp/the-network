@@ -4,35 +4,35 @@
 
     <div>
         <div class="row justify-content-center">
-            <div class="col-md-11 my-5">
+            <div class="col-md-11 my-5 hide-this">
                 <!-- FIXME add v-if for account.id -->
                 <CreatePost v-if="user.name" />
             </div>
         </div>
     
-            <div class="row justify-content-center">
-                <div class="col-md-10 my-2" v-for="p in post" :key="p.id">
-                    <PostCard :post="p" /> 
-                </div>
+        <div class="row justify-content-center px-2">
+            <div class="col-12 col-md-10 my-2" v-for="p in post" :key="p.id">
+                <PostCard :post="p" /> 
             </div>
+        </div>
 
         <div class="row d-flex justify-content-center text-center mt-2">
-            <div class="col-4">
+            <div class="col-5 col-md-4">
                 <button @click="changePage(newerPage)" class="btn btn-outline-dark w-50" :disabled="!newerPage">Newer</button>
             </div>
 
-            <div class="col-3">
+            <div class="col-2 col-md-3">
                 <p>page: {{page}}</p>
             </div>
 
-            <div class="col-4">
+            <div class="col-5 col-md-4">
                 <button @click="changePage(olderPage)" class="btn btn-outline-dark w-50">Older</button>
             </div>
         </div>
     
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-3 hide-this">
         <!-- FIXME ads should be in the AppVue - kind of looks broken from home page to profile page -->
         <Ads v-for="ad in ads" :key="ad.title" :ad="ad" />
     </div>
@@ -105,4 +105,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
+@media (max-width: 768px){
+    .hide-this{
+    display: none;
+    }
+}
 </style>

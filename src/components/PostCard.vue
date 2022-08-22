@@ -63,6 +63,8 @@ export default {
 // TODO add pop-confirm
             async deletePost(id){
                 try {
+                    const yes = await Pop.confirm('Delete this post?')
+                    if(!yes){return}
                     await postsService.deletePost(id)
                 } catch (error) {
                     logger.error('[Deleting Post]')

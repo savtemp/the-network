@@ -1,7 +1,7 @@
 <template>
 
 <div class="d-flex">
-  <section class="container bg-white elevation-3 profile-details">
+  <section class="container bg-white elevation-3 profile-details login-box">
     <Login />
   </section>
 
@@ -47,6 +47,12 @@ export default {
 .profile-details{
   height: 40em;
   width: 20em;
+}
+
+@media (max-width: 768px){
+  .login-box{
+    display: none;
+  }
 }
 
 </style>

@@ -1,11 +1,11 @@
 <template>
 
-<div class="d-flex">
+<div class="d-flex all-page">
     <div class="row justify-content-center">
         <div class="col-12 profile-page mx-5 px-5" v-if="profile">
             
             <!-- SECTION profile details card -->
-            <div class="elevation-2 my-3 rounded cover-img">
+            <div class="row elevation-2 my-3 rounded cover-img">
                 <div class="profile-details bg-white rounded text-dark elevation-2 p-4">
                     <div class="d-flex">
                         <img class="img-fluid profile-img" :src="profile.picture" alt="">
@@ -23,14 +23,14 @@
             </div>
 
             <div class="row my-2" v-if="profile.id == account.id">
-                <div class="col-6">
+                <div class="col-12 col-md-6">
                     <router-link class="btn square btn-warning" :to="{name: 'Account'}">Edit Account</router-link>
                 </div>
             </div>   
 
             <!-- SECTION create post card -->
             <div class="row justify-content-center" v-if="profile.id == account.id">
-                <div class="col-11">
+                <div class="col-12 col-md-11">
                     <CreatePost />
                 </div>
             </div>
@@ -38,7 +38,7 @@
 
             <!-- SECTION posts card -->
             <div class="row my-3 justify-content-center">
-                <div class="col-10 p-2" v-for="p in posts" :key="p.id">
+                <div class="col-12 col-md-10 p-2" v-for="p in posts" :key="p.id">
                     <PostCard :post="p" />
                 </div>
             </div>
@@ -178,5 +178,9 @@ export default {
 .profile-details{
     width: 30em;
     height: 20em;
+}
+
+.all-page{
+    overflow-x: none;
 }
 </style>
