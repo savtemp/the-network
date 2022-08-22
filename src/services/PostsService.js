@@ -51,6 +51,7 @@ class PostsService{
         logger.log(res.data)
 
         AppState.posts = res.data.posts
+        AppState.profilePosts = res.data.posts
         AppState.olderPage = res.data.older
         AppState.newerPage = res.data.newer
 
@@ -61,6 +62,7 @@ class PostsService{
     async likePost(id){
         const res = await api.post(`/api/posts/${id}/like`)
         logger.log(res.data)
+        
         AppState.likePost = res.data
     }
 
