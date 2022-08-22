@@ -45,9 +45,12 @@ class PostsService{
         logger.log(url)
         const res = await api.get(url)
         logger.log(res.data)
-        AppState.posts = res.data.posts.map(p => new Post(p))
+        AppState.posts = res.data.posts
         AppState.olderPage = res.data.older
         AppState.newerPage = res.data.newer
+
+        AppState.page = res.data.page
+        AppState.totalPages = res.data.totalPages
     }
 
     async likePost(id){

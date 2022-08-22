@@ -1,7 +1,13 @@
 <template>
-  <span class="navbar-text">
+  <span class="navbar-text p-5">
+    <!-- v-if="post.creator.id == account.id" -->
+        <!-- <div > -->
+            <!-- <button class="btn btn-danger" @click="deletePost(post.id)">Delete Post</button> -->
+            <!-- Put the Profile Name here
+        </div> -->
+
     <button
-      class="btn selectable text-success lighten-30 text-uppercase my-2 my-lg-0"
+      class="btn selectable text-dark lighten-30 text-uppercase my-2 my-lg-0"
       @click="login"
       v-if="!user.isAuthenticated"
     >
@@ -22,7 +28,7 @@
             height="40"
             class="rounded"
           />
-          <span class="mx-3 text-success lighten-30">{{ account.name || user.name }}</span>
+          <span class="mx-3 text-dark lighten-30">{{ account.name || user.name }}</span>
         </div>
       </div>
       <div
@@ -34,6 +40,11 @@
             Manage Account
           </div>
         </router-link>
+
+        <!-- <router-link :to="{name: 'Profile'}">
+          <img class="img-fluid profile-img" :src="user.picture" alt="" :title="user.name">
+        </router-link> -->
+
         <div
           class="list-group-item list-group-item-action hoverable text-danger"
           @click="logout"
@@ -41,6 +52,7 @@
           <i class="mdi mdi-logout"></i>
           logout
         </div>
+
       </div>
     </div>
   </span>
@@ -56,6 +68,7 @@ export default {
     return {
       user: computed(() => AppState.user),
       account: computed(() => AppState.account),
+      profile: computed(() => AppState.profiles),
       async login() {
         AuthService.loginWithPopup();
       },

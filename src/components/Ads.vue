@@ -1,5 +1,5 @@
 <template>
-   <img class="img-fluid" :src="ad.tall" alt="">
+   <img class="img-fluid p-3" :src="ad.tall" alt="">
 </template>
 
 

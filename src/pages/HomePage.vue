@@ -4,26 +4,32 @@
 
     <div>
         <div class="row justify-content-center">
-            <div class="col-md-10">
+            <div class="col-md-11 my-5">
                 <!-- FIXME add v-if for account.id -->
                 <CreatePost v-if="user.name" />
             </div>
         </div>
     
+            <div class="row justify-content-center">
+                <div class="col-md-10 my-2" v-for="p in post" :key="p.id">
+                    <PostCard :post="p" /> 
+                </div>
+            </div>
+
         <div class="row d-flex justify-content-center text-center mt-2">
             <div class="col-4">
                 <button @click="changePage(newerPage)" class="btn btn-outline-dark w-50" :disabled="!newerPage">Newer</button>
             </div>
+
+            <div class="col-3">
+                <p>page: {{page}}</p>
+            </div>
+
             <div class="col-4">
                 <button @click="changePage(olderPage)" class="btn btn-outline-dark w-50">Older</button>
             </div>
         </div>
     
-        <div class="row justify-content-center">
-            <div class="col-md-10 my-2" v-for="p in post" :key="p.id">
-                <PostCard :post="p" /> 
-            </div>
-        </div>
     </div>
 
     <div class="col-md-3">
@@ -81,6 +87,8 @@ export default {
             post: computed(() => AppState.posts),
             olderPage: computed(() => AppState.olderPage),
             newerPage: computed(() => AppState.newerPage),
+            page: computed(() => AppState.page),
+            totalPages: computed(() => AppState.totalPages),
             ads: computed(() => AppState.ads),
             user: computed(() => AppState.user),
 

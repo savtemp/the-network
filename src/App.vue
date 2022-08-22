@@ -1,7 +1,7 @@
 <template>
 
 <div class="d-flex">
-  <section class="container bg-light">
+  <section class="container bg-white elevation-3 profile-details">
     <Login />
   </section>
 
@@ -43,4 +43,10 @@ export default {
 </script>
 <style lang="scss">
 @import "./assets/scss/main.scss";
+
+.profile-details{
+  height: 40em;
+  width: 20em;
+}
+
 </style>
